@@ -111,7 +111,7 @@ namespace Ecommerce_Webservices.Controllers
             }
         }
 
-        [HttpPost("assign-role")]
+        [HttpPost("assignee-role")]
         public async Task<IActionResult> AssignRole([FromBody] AssignRoleReq objAssignRoleReq)
         {
             try
