@@ -28,14 +28,24 @@ An ASP.NET Core Web API for managing an eCommerce platform, offering endpoints f
 
 ### Role
 
-| **Endpoint**                       | **Method**   | **Description**                                     | **Role**    |
-|------------------------------------|--------------|-----------------------------------------------------|-------------|
-| /Role/add-role                     | POST         | Adding a new role                                   | Admin       |
-| /Role/assigning-role	             | POST         | Assigning role to user                              | Admin       |
-| /Role/update-role                  | POST         | Updating a role                                     | Admin       |
-| /Role/getcreated-roles/:email	     | GET          | Getting all created Roles by email                  | Admin       |
-| /Role/delete-role/:roleName/:email | DELETE       | Delete role base on name and email                  | Admin       |
-| /Role/getAssigned-roles/:email	 | GET          | Getting all Assigned Roles by email                 | User/Admin  |  
+| **Endpoint**                       | **Method**   | **Description**                          | **Role**    |
+|------------------------------------|--------------|------------------------------------------|-------------|
+| /Role/add-role                     | POST         | Adding a new role                        | Admin       |
+| /Role/assigning-role	             | POST         | Assigning role to user                   | Admin       |
+| /Role/update-role                  | POST         | Updating a role                          | Admin       |
+| /Role/getcreated-roles/:email	     | GET          | Getting all created Roles by email       | Admin       |
+| /Role/delete-role/:roleName/:email | DELETE       | Delete role base on name and email       | Admin       |
+| /Role/getAssigned-roles/:email	 | GET          | Getting all Assigned Roles by email      | User/Admin  |  
+
+### Categories
+
+| **Endpoint**                       | **Method**   | **Description**                          | **Role**    |
+|------------------------------------|--------------|------------------------------------------|-------------|
+| /Category/add                      | POST         | Adding a new Category                    | Admin       |
+| /Category/getall/:userID	         | GET          | Getting categories by user               | Admin       |
+| /Category/update                   | POST         | Updating a Category                      | Admin       |
+| /Category/delete?Id&userId	     | DELETE       | Deleting category                        | Admin       |
+
 
 
 ## Getting Started
