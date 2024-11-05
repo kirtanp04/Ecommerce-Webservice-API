@@ -45,8 +45,9 @@ namespace Ecommerce_Webservices.Controllers
 
                     return Unauthorized(objRes);
                 }
+                string userId = CommonVar.getUserIdfromClaims(User);
                 // checking valid user or not
-                var objUser = await _userManager.FindByIdAsync(categories.UserId);
+                var objUser = await _userManager.FindByIdAsync(userId);
                 if (objUser == null)
                 {
                     objRes.message = CommonVar.InvalidUser;
@@ -57,7 +58,7 @@ namespace Ecommerce_Webservices.Controllers
 
                 // checking categorie exits or not of that user
                 var category = await _databaseContext.Categories
-                    .Where(obj => obj.UserId == categories.UserId && obj.Name == categories.Name)
+                    .Where(obj => obj.UserId == userId && obj.Name == categories.Name)
                     .FirstOrDefaultAsync();         
 
                 if(category != null)
@@ -70,7 +71,7 @@ namespace Ecommerce_Webservices.Controllers
                 Categories objCategory = new Categories();
                 objCategory.Name = categories.Name;
                 objCategory.Description = categories.Description;
-                objCategory.UserId = categories.UserId;
+                objCategory.UserId = userId;
                 objCategory.Id = Guid.NewGuid().ToString();
 
                 // adding category
@@ -95,20 +96,14 @@ namespace Ecommerce_Webservices.Controllers
             }
         }
 
-        [HttpGet("getall/{userID}")]
-        public async Task<IActionResult> GetAllCategories(string userID)
+        [HttpGet("getall")]
+        public async Task<IActionResult> GetAllCategories()
         {
             try
             {
                 UserResponse<List<Categories>> objRes = new UserResponse<List<Categories>>();
 
-                if(userID == null)
-                {
-                    objRes.isSuccess = false;
-                    objRes.message = "Getting user id null";
-                    objRes.Data = [];
-                    return BadRequest(objRes);
-                }
+               
                 if (!User.IsInRole("Admin"))
                 {
                     objRes.message = CommonVar.NoPermission;
@@ -117,8 +112,9 @@ namespace Ecommerce_Webservices.Controllers
 
                     return Unauthorized(objRes);
                 }
+                string userId = CommonVar.getUserIdfromClaims(User);
                 // checking valid user or not
-                var objUser = await _userManager.FindByIdAsync(userID);
+                var objUser = await _userManager.FindByIdAsync(userId);
                 if (objUser == null)
                 {
                     objRes.message = CommonVar.InvalidUser;
@@ -128,7 +124,7 @@ namespace Ecommerce_Webservices.Controllers
                 }
 
                 // getting list 
-                var listcategories = await _databaseContext.Categories.Where(obj => obj.UserId == userID).ToListAsync();
+                var listcategories = await _databaseContext.Categories.Where(obj => obj.UserId == userId).ToListAsync();
 
                 objRes.Data = listcategories;
                 objRes.isSuccess = true;
@@ -172,8 +168,9 @@ namespace Ecommerce_Webservices.Controllers
 
                     return Unauthorized(objRes);
                 }
+                string userId = CommonVar.getUserIdfromClaims(User);
                 // checking valid user or not
-                var objUser = await _userManager.FindByIdAsync(categories.UserId);
+                var objUser = await _userManager.FindByIdAsync(userId);
                 if (objUser == null)
                 {
                     objRes.message = CommonVar.InvalidUser;
@@ -184,7 +181,7 @@ namespace Ecommerce_Webservices.Controllers
 
                 // checking categorie exits or not of that user
                 var category = await _databaseContext.Categories
-                    .Where(obj => obj.UserId == categories.UserId && obj.Id == categories.Id)
+                    .Where(obj => obj.UserId == userId && obj.Id == categories.Id)
                     .FirstOrDefaultAsync();
 
                 if (category == null)
@@ -221,13 +218,13 @@ namespace Ecommerce_Webservices.Controllers
         }
 
         [HttpDelete("delete")]
-        public async Task<IActionResult> DeleteCategory([FromQuery] string Id, [FromQuery] string userId)
+        public async Task<IActionResult> DeleteCategory([FromQuery] string Id)
         {
             try
             {
                 UserResponse<string> objRes = new UserResponse<string>();
 
-                if (Id == "" || userId == "")
+                if (Id == "" )
                 {
                     objRes.message = "Provide all values to delete category";
                     objRes.isSuccess = false;
@@ -244,7 +241,7 @@ namespace Ecommerce_Webservices.Controllers
 
                     return Unauthorized(objRes);
                 }
-
+                string userId = CommonVar.getUserIdfromClaims(User);
                 // checking valid user or not
                 var objUser = await _userManager.FindByIdAsync(userId);
                 if (objUser == null)
