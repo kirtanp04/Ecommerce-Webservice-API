@@ -42,10 +42,20 @@ An ASP.NET Core Web API for managing an eCommerce platform, offering endpoints f
 | **Endpoint**                       | **Method**   | **Description**                          | **Role**    |
 |------------------------------------|--------------|------------------------------------------|-------------|
 | /Category/add                      | POST         | Adding a new Category                    | Admin       |
-| /Category/getall/:userID	         | GET          | Getting categories by user               | Admin       |
+| /Category/getall	                 | GET          | Getting categories by user               | Admin       |
 | /Category/update                   | POST         | Updating a Category                      | Admin       |
-| /Category/delete?Id&userId	     | DELETE       | Deleting category                        | Admin       |
+| /Category/delete?Id	             | DELETE       | Deleting category                        | Admin       |
 
+### Product
+
+| **Endpoint**                          | **Method**   | **Description**                              | **Role**    |
+|---------------------------------------|--------------|----------------------------------------------|-------------|
+| /Product/add                          | POST         | Adding a new Product                         | Admin       |
+| /Product/active-inactive/:productId	| POST         | Making product active/Inactive for shopping  | Admin       |
+| /Product/update                       | POST         | Updating a Product                           | Admin       |
+| /Product/delete?productId	            | DELETE       | Deleting a Product                           | Admin       |
+| /Product/getall-product				| GET		   | Getting all Products                         | User        |
+	
 
 
 ## Getting Started

@@ -12,4 +12,10 @@
         public string Dimensions { get; set; } = string.Empty;
         public decimal Weight { get; set; }
     }
+
+    public class ProductUpdateReq:ProductReq
+    {
+
+        public string ProductId { get; set; } = string.Empty ;
+    }
 }
