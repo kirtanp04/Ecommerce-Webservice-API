@@ -451,5 +451,53 @@ namespace Ecommerce_Webservices.Controllers
                 return BadRequest(objRes);
             }
         }
+
+        [HttpGet("get-user-products")]
+        public async Task<IActionResult> GetUserProducts()
+        {
+            try
+            {
+                UserResponse<List<DataObject.Product>> objRes = new UserResponse<List<DataObject.Product>>();
+
+                if (!User.IsInRole("User"))
+                {
+                    objRes.message = CommonVar.NoAdminPermission;
+                    objRes.isSuccess = false;
+                    objRes.Data = [];
+
+                    return Unauthorized(objRes);
+                }
+
+                var userId = CommonVar.getUserIdfromClaims(User);
+                // checking user exits or not
+                var objUser = await _userManager.FindByIdAsync(userId);
+                if (objUser == null)
+                {
+                    objRes.message = CommonVar.InvalidUser;
+                    objRes.isSuccess = false;
+                    objRes.Data = [];
+                    return Unauthorized(objRes);
+                }
+
+                // getting all user products
+                var products = await _databaseContext.Products.Where(objPro => objPro.UserId == userId).ToListAsync();
+
+                objRes.isSuccess = true;
+                objRes.Data = products;
+                objRes.message = "";
+                return Ok(objRes);
+            }
+            catch (Exception ex)
+            {
+
+                UserResponse<string> objRes = new UserResponse<string>
+                {
+                    isSuccess = false,
+                    message = ex.Message,
+                    Data = "",
+                };
+                return BadRequest(objRes);
+            }
+        }
     }
 }

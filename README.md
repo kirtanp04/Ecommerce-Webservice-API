@@ -55,7 +55,16 @@ An ASP.NET Core Web API for managing an eCommerce platform, offering endpoints f
 | /Product/update                       | POST         | Updating a Product                           | Admin       |
 | /Product/delete?productId	            | DELETE       | Deleting a Product                           | Admin       |
 | /Product/getall-product				| GET		   | Getting all Products                         | User        |
-	
+| /Product/get-user-product				| GET		   | Getting all user Products                    | Admin       |
+
+### Product Image
+
+| **Endpoint**                          | **Method**   | **Description**                              | **Role**    |
+|---------------------------------------|--------------|----------------------------------------------|-------------|
+| /ProductImage/add-product-img         | POST         | Adding a new Product Img                     | Admin       |
+| /ProductImage/add-multiple	        | POST         | Adding Multiple Image                        | Admin       |
+| /ProductImage/delete?imgId            | DELETE       | Deleting a Image                             | Admin       |
+
 
 
 ## Getting Started
